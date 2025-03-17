@@ -3,11 +3,12 @@ package live.sport.board.type;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
+import java.util.Comparator;
+import java.util.Objects;
 
 @Getter
 @Setter
-public class Match {
+public class Match implements Comparable<Match>{
     private Team homeTeam;
     private Team awayTeam;
     private final long timestamp;
@@ -22,8 +23,23 @@ public class Match {
         return homeTeam.getScore() + awayTeam.getScore();
     }
 
-    public String matchName() {
-        return homeTeam.getTeamName() + " " + awayTeam.getTeamName();
+    @Override
+    public int compareTo(Match o) {
+        return Comparator.comparingInt(Match::getTotalMatchScores)
+                .thenComparingLong(Match::getTimestamp)
+                .reversed()
+                .compare(this, o);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return Objects.equals(homeTeam, match.homeTeam) && Objects.equals(awayTeam, match.awayTeam);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(homeTeam, awayTeam);
+    }
 }

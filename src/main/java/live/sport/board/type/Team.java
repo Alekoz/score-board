@@ -16,10 +16,15 @@ public class Team {
         this.score = score;
     }
 
-    private void setTeamName(String teamName) {
-        if(Objects.isNull(teamName) || teamName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Team name cannot be empty");
-        }
-        this.teamName = teamName;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(teamName, team.teamName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(teamName);
     }
 }

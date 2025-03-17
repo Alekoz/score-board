@@ -84,12 +84,12 @@ public class ScoreBoardTest {
 
     @Test
     public void shouldThrowExceptionOnAddNewMatchWhenOneOfTeamNameNull() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> createMatch(new Team(null, 0), new Team("Canada", 0)));
+        assertThrowsExactly(IllegalArgumentException.class, () -> scoreBoard.startNewMatch(createMatch(new Team(null, 0), new Team("Canada", 0))), "Team name cannot be null or empty");
     }
 
     @Test
     public void shouldThrowExceptionOnAddNewMatchWhenOneOfTeamNameEmptyString() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> createMatch(new Team("", 0), new Team("Canada", 0)));
+        assertThrowsExactly(IllegalArgumentException.class, () -> scoreBoard.startNewMatch(createMatch(new Team("", 0), new Team("Canada", 0))),"Team name cannot be null or empty");
     }
 
     private Match createMatch(Team homeTeam, Team awayTeam) {
