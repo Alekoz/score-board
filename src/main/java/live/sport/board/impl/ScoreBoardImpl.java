@@ -2,7 +2,8 @@ package live.sport.board.impl;
 
 import live.sport.board.ScoreBoard;
 import live.sport.board.type.Match;
-import live.sport.board.type.Team;
+import live.sport.board.type.MatchAbstract;
+import live.sport.board.type.TeamAbstract;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ScoreBoardImpl implements ScoreBoard {
 
-    private final ConcurrentHashMap<Match, Match> matches = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<MatchAbstract, MatchAbstract> matches = new ConcurrentHashMap<>();
 
     @Override
-    public Match startNewMatch(Match match) {
+    public MatchAbstract startNewMatch(MatchAbstract match) {
         if (Objects.isNull(match.getHomeTeam()) || Objects.isNull(match.getAwayTeam())) {
             throw new IllegalArgumentException("The match can't be null.");
         }
@@ -35,24 +36,24 @@ public class ScoreBoardImpl implements ScoreBoard {
     }
 
     @Override
-    public Match updateScore(Team homeTeam, Team awayTeam) {
-        if (!matches.containsKey(new Match(homeTeam, awayTeam))) {
+    public MatchAbstract updateScore(TeamAbstract homeTeamAbstract, TeamAbstract awayTeamAbstract) {
+        if (!matches.containsKey(new Match(homeTeamAbstract, awayTeamAbstract))) {
             throw new IllegalArgumentException("Match not found!");
         }
-        var match = matches.get(new Match(homeTeam, awayTeam));
-        match.setHomeTeam(homeTeam);
-        match.setAwayTeam(awayTeam);
+        var match = matches.get(new Match(homeTeamAbstract, awayTeamAbstract));
+        match.setHomeTeam(homeTeamAbstract);
+        match.setAwayTeam(awayTeamAbstract);
 
         return matches.put(match, match);
     }
 
     @Override
-    public void removeMatch(Match match) {
+    public void removeMatch(MatchAbstract match) {
         matches.remove(match);
     }
 
     @Override
-    public List<Match> getSummary() {
+    public List<MatchAbstract> getSummary() {
         var c = new ArrayList<>(matches.values());
         Collections.sort(c);
         return c;

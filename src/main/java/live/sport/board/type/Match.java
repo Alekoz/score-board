@@ -8,27 +8,13 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Match implements Comparable<Match>{
-    private Team homeTeam;
-    private Team awayTeam;
-    private final long timestamp;
-
-    public Match(Team homeTeam, Team awayTeam) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.timestamp = System.nanoTime();
+public class Match extends MatchAbstract {
+    public Match(TeamAbstract homeTeamAbstract, TeamAbstract awayTeamAbstract) {
+        super(homeTeamAbstract, awayTeamAbstract);
     }
 
     public int getTotalMatchScores(){
         return homeTeam.getScore() + awayTeam.getScore();
-    }
-
-    @Override
-    public int compareTo(Match o) {
-        return Comparator.comparingInt(Match::getTotalMatchScores)
-                .thenComparingLong(Match::getTimestamp)
-                .reversed()
-                .compare(this, o);
     }
 
     @Override
@@ -41,5 +27,13 @@ public class Match implements Comparable<Match>{
     @Override
     public int hashCode() {
         return Objects.hash(homeTeam, awayTeam);
+    }
+
+    @Override
+    public int compareTo(MatchAbstract o) {
+        return Comparator.comparingInt(Match::getTotalMatchScores)
+                .thenComparingLong(Match::getTimestamp)
+                .reversed()
+                .compare(this, (Match) o);
     }
 }

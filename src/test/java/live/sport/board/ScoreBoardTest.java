@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 @ExtendWith(MockitoExtension.class)
 public class ScoreBoardTest {
 
-    private ScoreBoard scoreBoard = new ScoreBoardImpl();
+    private final ScoreBoard scoreBoard = new ScoreBoardImpl();
 
     @Test
     public void shouldAddNewMatch() {

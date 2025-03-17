@@ -7,20 +7,16 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Team {
-    private String teamName;
-    private int score;
-
+public class Team extends TeamAbstract{
     public Team(String teamName, int score) {
-        setTeamName(teamName);
-        this.score = score;
+        super(teamName, score);
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Team team = (Team) o;
-        return Objects.equals(teamName, team.teamName);
+        TeamAbstract teamAbstract = (TeamAbstract) o;
+        return Objects.equals(teamName, teamAbstract.teamName);
     }
 
     @Override

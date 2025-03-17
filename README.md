@@ -9,13 +9,13 @@ and according to some overhead with getting and adding records to the Concurrent
 
 The main interface for interaction is live.sport.board.ScoreBoard.
 ```
-    Match startNewMatch(Match match);
-    Match updateScore(Team homeTeam, Team awayTeam);
-    void removeMatch(Match match);
-    List<Match> getSummary();
+   MatchAbstract startNewMatch(MatchAbstract match);
+   MatchAbstract updateScore(TeamAbstract homeTeamAbstract, TeamAbstract awayTeamAbstract);
+   void removeMatch(MatchAbstract match);
+   List<MatchAbstract> getSummary();
 ```
 
-
+Also added match abstraction in case for someone will be interested to change sorting logic.
 
 Build with tests :
 ```mvn clean install```
