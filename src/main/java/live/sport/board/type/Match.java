@@ -21,12 +21,13 @@ public class Match extends MatchAbstract {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Match match = (Match) o;
-        return Objects.equals(homeTeam, match.homeTeam) && Objects.equals(awayTeam, match.awayTeam);
+        return Objects.equals(homeTeam, match.homeTeam) || Objects.equals(awayTeam, match.awayTeam) ||
+                Objects.equals(homeTeam, match.awayTeam) || Objects.equals(awayTeam, match.homeTeam);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homeTeam, awayTeam);
+        return Objects.hash(homeTeam, awayTeam) + Objects.hash(awayTeam, homeTeam);
     }
 
     @Override
