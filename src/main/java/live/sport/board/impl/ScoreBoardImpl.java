@@ -44,7 +44,7 @@ public class ScoreBoardImpl implements ScoreBoard {
 
     @Override
     public void removeMatch(Match match) {
-        matches.removeIf(m ->m.equals(match));
+        matches.remove(match);
     }
 
     @Override
