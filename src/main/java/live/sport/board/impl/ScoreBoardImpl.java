@@ -13,10 +13,9 @@ public class ScoreBoardImpl implements ScoreBoard {
 
     private final Comparator<Match> matchComparator = Comparator.comparingInt(Match::getTotalMatchScores)
             .thenComparing(Match::getTimestamp)
-            .thenComparing(Match::getId)
             .reversed();
 
-    private ConcurrentSkipListSet<Match> matches = new ConcurrentSkipListSet<>(matchComparator);
+    private final ConcurrentSkipListSet<Match> matches = new ConcurrentSkipListSet<>(matchComparator);
 
     @Override
     public Match startNewMatch(Match match) {
@@ -26,6 +25,11 @@ public class ScoreBoardImpl implements ScoreBoard {
         if (match.getHomeTeam().getScore() != 0 || match.getAwayTeam().getScore() != 0) {
             throw new IllegalArgumentException("The match should starts only with 0 scores.");
         }
+        if (matches.stream().anyMatch(m -> m.matchName().equals(match.matchName()))){
+            throw new IllegalArgumentException("The match already in progress.");
+        }
+
+
         return matches.add(match) ? match : null;
     }
 

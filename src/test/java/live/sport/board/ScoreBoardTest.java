@@ -67,6 +67,12 @@ public class ScoreBoardTest {
     }
 
     @Test
+    public void shouldThrowExceptionOnAddNewMatchWhenMatchIsAlreadyInProgress() {
+        scoreBoard.startNewMatch(createMatch(new Team("Mexico", 0), new Team("Canada", 0)));
+        assertThrowsExactly(IllegalArgumentException.class, () -> scoreBoard.startNewMatch(createMatch(new Team("Mexico", 0), new Team("Canada", 0))), "The match already in progress.");
+    }
+
+    @Test
     public void shouldThrowExceptionOnAddNewMatchWithInitialScoresLessThan0() {
         assertThrowsExactly(IllegalArgumentException.class, () -> scoreBoard.startNewMatch(createMatch(new Team("Mexico", -1), new Team("Canada", 0))), "The match should starts only with 0 scores.");
     }

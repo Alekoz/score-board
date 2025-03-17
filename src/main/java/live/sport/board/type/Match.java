@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Match {
-    private final UUID id = UUID.randomUUID();
     private Team homeTeam;
     private Team awayTeam;
     private final long timestamp;
