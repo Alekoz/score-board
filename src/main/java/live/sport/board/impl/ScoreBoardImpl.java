@@ -27,7 +27,7 @@ public class ScoreBoardImpl implements ScoreBoard {
                 || (Objects.isNull(match.getAwayTeam().getTeamName()) || match.getAwayTeam().getTeamName().isEmpty())) {
             throw new IllegalArgumentException("Team name cannot be null or empty");
         }
-        if (matches.containsKey(match)) {
+        if (Objects.nonNull(matches.get(match))) {
             throw new IllegalArgumentException("The match already in progress.");
         }
 
